@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/username_background_register"
+    android:orientation="vertical"
+    tools:context=".Registration">
+
+    <!--Username and Let's Go Button-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:background="@drawable/username_background_register">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/et_register_background">
+
+            <!--Username-->
+            <TextView
+                android:id="@+id/tv_username_registration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:maxLength="20"
+                android:text="@string/username"
+                android:textColor="#E8DC54"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <!--Let's Go-->
+            <ImageButton
+                android:id="@+id/btn_lets_go_registration"
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/lets_go_button"
+                android:contentDescription="@string/todo" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <!--Middle-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/et_username_background_register"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_username_registration"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="8"
+            android:autofillHints="name"
+            android:gravity="center"
+            android:hint="@string/your_name"
+            android:inputType="textPersonName"
+            android:maxLength="15"
+            android:textColor="#fff"
+            android:textColorHint="#9FE8DC54"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:ignore="NestedWeights" />
+
+        <CheckBox
+            android:id="@+id/cb_use_my_name_registration"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/draw_check"
+            android:button="@android:color/transparent"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <!--Part Image-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <!--Previous Image Button-->
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/previous_image_background"
+            tools:ignore="NestedWeights">
+
+            <ImageButton
+                android:id="@+id/img_btn_previous_image_registration"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/previous_img_golden"
+                android:contentDescription="@string/todo" />
+
+        </RelativeLayout>
+
+        <!--User Image-->
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@drawable/image_frame1">
+
+            <ImageView
+                android:id="@+id/img_profile_registration"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/character_b"
+                android:contentDescription="@string/todo" />
+        </RelativeLayout>
+
+        <!--Next Image Button-->
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/next_image_background">
+
+            <ImageButton
+                android:id="@+id/img_btn_next_image_registration"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/next_img_golden"
+                android:contentDescription="@string/todo" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

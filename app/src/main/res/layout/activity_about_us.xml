@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_about_us"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context=".AboutUs">
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/about_us_background_najib"
+        android:contentDescription="@string/todo"
+        android:onClick="goToInstagram"
+        android:tag="najib"
+        tools:ignore="UsingOnClickInXml" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/about_us_background_hossein"
+        android:contentDescription="@string/todo"
+        android:onClick="goToInstagram"
+        android:tag="hossein"
+        tools:ignore="UsingOnClickInXml" />
+</LinearLayout>
