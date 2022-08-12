@@ -2,7 +2,7 @@ package com.facegroup.heroes.Guide;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,14 +27,17 @@ public class Guide {
     TextView btnNextGuide, btnChangeGuideLanguage;
     TextView tvGuide, tvActivityName;
 
+    Activity activity;
+
     Database database;
 
-    public Guide(Context context, String activityName, String[] persianGuides, String[] englishGuides, int[] guidesImages) {
-        database = new Database(context);
-        this.activityName = activityName;
-        this.persianGuides = persianGuides;
-        this.englishGuides = englishGuides;
-        this.guidesImages = guidesImages;
+    public Guide(Activity activity, String activityName, String[] englishGuides, String[] persianGuides, int[] guidesImages) {
+        this.activity = activity;
+        database = new Database(activity);
+        setActivityName(activityName);
+        setPersianGuides(persianGuides);
+        setEnglishGuides(englishGuides);
+        setGuidesImages(guidesImages);
     }
 
     public String getActivityName() {
@@ -70,8 +73,8 @@ public class Guide {
     }
 
     @SuppressLint("SetTextI18n")
-    public void initGuide(Activity activity, Guide guide) {
-        Sound.initSoundPool(activity);
+    public void initGuide(Guide guide) {
+        Sound.initClickSoundPool(activity);
         LayoutInflater inflater = LayoutInflater.from(activity);
         RelativeLayout layoutGuide = activity.findViewById(R.id.layout_guide);
         View guideView = inflater.inflate(R.layout.layout_guide, layoutGuide, false);
@@ -87,16 +90,17 @@ public class Guide {
         btnChangeGuideLanguage.setText("رهنمای فارسی");
 
         btnNextGuide.setOnClickListener(view1 -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             nextGuide(guide, layoutGuide);
         });
         btnChangeGuideLanguage.setOnClickListener(view12 -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             changeLanguage(guide);
         });
 
         layoutGuide.addView(guideView);
         layoutGuide.setVisibility(View.GONE);
+        layoutGuide.setTranslationY(3000);
     }
 
     public void setGuideData(Guide guideData) {
@@ -106,11 +110,16 @@ public class Guide {
         imgCharacter.setImageResource(Profile.getArrCharactersImages()[database.getImageIndex()]);
     }
 
-    public void showGuide(Activity activity, Guide guide) {
-        guidePage = 0;
-        setGuideData(guide);
-        RelativeLayout layoutGuide = activity.findViewById(R.id.layout_guide);
-        layoutGuide.setVisibility(View.VISIBLE);
+    public void showGuide(Guide guide) {
+        if (database.isGuideAvailable(guide.getActivityName())) {
+            Sound.initGuideSoundPool(activity);
+            Sound.playGuideSound();
+            guidePage = 0;
+            setGuideData(guide);
+            RelativeLayout layoutGuide = activity.findViewById(R.id.layout_guide);
+            layoutGuide.setVisibility(View.VISIBLE);
+            layoutGuide.animate().translationY(0).setDuration(500);
+        }
     }
 
     public void changeLanguage(Guide guide) {
@@ -126,15 +135,18 @@ public class Guide {
             btnNextGuide.setBackgroundResource(R.drawable.done_button_draw);
         }
         if (guidePage == guide.getEnglishGuides().length - 1) {
-            skipGuide(layoutGuide);
+            finishGuide(guide, layoutGuide);
             return;
         }
         guidePage++;
         setGuideData(guide);
     }
 
-    public void skipGuide(RelativeLayout layoutGuide) {
-        // todo update this to database
-        layoutGuide.setVisibility(View.GONE);
+    public void finishGuide(Guide guide, RelativeLayout layoutGuide) {
+        Sound.initGuideSoundPool(activity);
+        Sound.playGuideSound();
+        database.updateGuide(guide.getActivityName(), false);
+        layoutGuide.animate().translationY(3000).setDuration(500);
+        new Handler().postDelayed(() -> layoutGuide.setVisibility(View.GONE), 700);
     }
 }

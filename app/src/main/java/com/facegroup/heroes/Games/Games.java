@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.facegroup.heroes.Animation;
 import com.facegroup.heroes.DisableViews;
 import com.facegroup.heroes.GoSomewhere;
+import com.facegroup.heroes.Guide.Guide;
+import com.facegroup.heroes.Guide.GuideInitialization;
 import com.facegroup.heroes.Home;
 import com.facegroup.heroes.Games.PictureGame.PictureGameLevels;
 import com.facegroup.heroes.R;
@@ -18,11 +20,12 @@ import com.facegroup.heroes.Sound;
 import com.facegroup.heroes.Wealth.Wealth;
 import com.facegroup.heroes.Wealth.WealthInitialization;
 
-public class Games extends AppCompatActivity implements WealthInitialization, Animation, DisableViews {
+public class Games extends AppCompatActivity implements WealthInitialization, Animation, DisableViews, GuideInitialization {
 
     ImageButton btnJumperGame, btnPictureGame;
     ImageButton btnSettings, btnStore;
     Wealth wealth;
+    Guide guide;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,25 +35,25 @@ public class Games extends AppCompatActivity implements WealthInitialization, An
         init();
 
         btnStore.setOnClickListener(view -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             GoSomewhere.goToStore(Games.this, "GAMES");
             disableAllViews();
         });
         btnSettings.setOnClickListener(view -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             GoSomewhere.goToSettings(Games.this, "GAMES");
             disableAllViews();
         });
 
         btnPictureGame.setOnClickListener(view -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             disableAllViews();
             decreaseViewSize(view);
             new Handler().postDelayed(() -> increaseViewSize(view), 300);
             new Handler().postDelayed(() -> GoSomewhere.goSomewhere(Games.this, PictureGameLevels.class), 500);
         });
         btnJumperGame.setOnClickListener(view -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             disableAllViews();
             decreaseViewSize(view);
             new Handler().postDelayed(() -> increaseViewSize(view), 300);
@@ -61,8 +64,10 @@ public class Games extends AppCompatActivity implements WealthInitialization, An
 
     public void init() {
         initWidgets();
-        Sound.initSoundPool(this);
+        Sound.initClickSoundPool(this);
         initWealth();
+        initGuide();
+        showGuide();
     }
 
     public void initWidgets() {
@@ -85,7 +90,7 @@ public class Games extends AppCompatActivity implements WealthInitialization, An
 
     @Override
     public void onBackPressed() {
-        Sound.playSoundSound();
+        Sound.playClickSound();
         GoSomewhere.goSomewhere(this, Home.class);
     }
 
@@ -101,5 +106,16 @@ public class Games extends AppCompatActivity implements WealthInitialization, An
         btnSettings.setEnabled(false);
         btnStore.setEnabled(false);
         btnPictureGame.setEnabled(false);
+    }
+
+    @Override
+    public void initGuide() {
+        guide = new Guide(this, "GAMES", new String[]{"Eye", "Timer", "English Word"}, new String[]{"چشم", "تایمر", "لغت انگلیسی"}, new int[]{R.drawable.guide_eye, R.drawable.guide_timer, R.drawable.guide_english_word});
+        guide.initGuide(guide);
+    }
+
+    @Override
+    public void showGuide() {
+        guide.showGuide(guide);
     }
 }

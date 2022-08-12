@@ -14,10 +14,12 @@ import com.facegroup.heroes.Biography.Biographies;
 import com.facegroup.heroes.Database.Database;
 import com.facegroup.heroes.Games.Games;
 import com.facegroup.heroes.Games.PictureGame.PictureGameLevels;
+import com.facegroup.heroes.Guide.Guide;
+import com.facegroup.heroes.Guide.GuideInitialization;
 import com.facegroup.heroes.Wealth.Wealth;
 import com.facegroup.heroes.Wealth.WealthInitialization;
 
-public class Store extends AppCompatActivity implements WealthInitialization {
+public class Store extends AppCompatActivity implements WealthInitialization, GuideInitialization {
 
     String cameFromWhere;
     Wealth wealth;
@@ -26,6 +28,7 @@ public class Store extends AppCompatActivity implements WealthInitialization {
 
     LinearLayout layoutBuyCoinStore;
     Database database;
+    Guide guide;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +37,7 @@ public class Store extends AppCompatActivity implements WealthInitialization {
         setContentView(R.layout.activity_store);
         init();
         btnSettings.setOnClickListener(view -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             GoSomewhere.goToSettings(Store.this, "STORE");
         });
     }
@@ -47,9 +50,11 @@ public class Store extends AppCompatActivity implements WealthInitialization {
     public void init() {
         initWidgets();
         database = new Database(this);
-        Sound.initSoundPool(this);
+        Sound.initClickSoundPool(this);
         initWealth();
         initCameFromWhere();
+        initGuide();
+        showGuide();
     }
 
     public void initLayoutBuyCoinStore() {
@@ -72,7 +77,7 @@ public class Store extends AppCompatActivity implements WealthInitialization {
 
     @Override
     public void onBackPressed() {
-        Sound.playSoundSound();
+        Sound.playClickSound();
         switch (cameFromWhere) {
             case "HOME":
                 GoSomewhere.goSomewhere(this, Home.class);
@@ -94,5 +99,16 @@ public class Store extends AppCompatActivity implements WealthInitialization {
     public void initWealth() {
         wealth = new Wealth(this);
         wealth.initWealth();
+    }
+
+    @Override
+    public void initGuide() {
+        guide = new Guide(this, "STORE", new String[]{"Eye", "Timer", "English Word"}, new String[]{"چشم", "تایمر", "لغت انگلیسی"}, new int[]{R.drawable.guide_eye, R.drawable.guide_timer, R.drawable.guide_english_word});
+        guide.initGuide(guide);
+    }
+
+    @Override
+    public void showGuide() {
+        guide.showGuide(guide);
     }
 }

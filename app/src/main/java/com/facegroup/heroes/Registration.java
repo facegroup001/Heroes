@@ -58,7 +58,7 @@ public class Registration extends AppCompatActivity implements DisableViews {
         });
 
         cbUseMyName.setOnCheckedChangeListener((compoundButton, b) -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             etUsername.setEnabled(b);
             setCharacterName();
             etUsername.setTextColor(b ? Profile.MY_NAME_COLOR : Profile.DEFAULT_NAME_COLOR);
@@ -71,7 +71,7 @@ public class Registration extends AppCompatActivity implements DisableViews {
         btnLetsGo.setOnClickListener(view -> {
             if (isUsernameValid()) {
                 updateUser();
-                Sound.playSoundSound();
+                Sound.playClickSound();
                 disableAllViews();
                 letsGoAnimation();
                 if (cameFromSettings.equals("CAME_FROM_SETTINGS")) {
@@ -86,7 +86,7 @@ public class Registration extends AppCompatActivity implements DisableViews {
     }
 
     public void nextCharacter() {
-        Sound.playSoundSound();
+        Sound.playClickSound();
         if (imgPosition == Profile.getArrCharactersImages().length - 1) {
             imgPosition = -1;
         }
@@ -96,7 +96,7 @@ public class Registration extends AppCompatActivity implements DisableViews {
     }
 
     public void previousCharacter() {
-        Sound.playSoundSound();
+        Sound.playClickSound();
         if (imgPosition == 0) {
             imgPosition = Profile.getArrCharactersImages().length;
         }
@@ -120,7 +120,7 @@ public class Registration extends AppCompatActivity implements DisableViews {
     public void init() {
         initWidgets();
         database = new Database(this);
-        Sound.initSoundPool(this);
+        Sound.initClickSoundPool(this);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             cameFromSettings = bundle.getString("SETTINGS");
@@ -151,6 +151,7 @@ public class Registration extends AppCompatActivity implements DisableViews {
         database.insertProfile();
         database.insertWealth();
         database.insertBiographySettings();
+        database.insertAllGuides();
     }
 
     public void initWidgets() {
@@ -201,7 +202,7 @@ public class Registration extends AppCompatActivity implements DisableViews {
 
     @Override
     public void onBackPressed() {
-        Sound.playSoundSound();
+        Sound.playClickSound();
         if (cameFromSettings.equals("CAME_FROM_SETTINGS")) {
             GoSomewhere.goSomewhere(this, Settings.class);
         } else {

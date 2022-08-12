@@ -12,12 +12,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.facegroup.heroes.DisableViews;
 import com.facegroup.heroes.Games.Games;
 import com.facegroup.heroes.GoSomewhere;
+import com.facegroup.heroes.Guide.Guide;
+import com.facegroup.heroes.Guide.GuideInitialization;
 import com.facegroup.heroes.R;
 import com.facegroup.heroes.Sound;
 import com.facegroup.heroes.Wealth.Wealth;
 import com.facegroup.heroes.Wealth.WealthInitialization;
 
-public class PictureGameLevels extends AppCompatActivity implements WealthInitialization, DisableViews {
+public class PictureGameLevels extends AppCompatActivity implements WealthInitialization, DisableViews, GuideInitialization {
 
     LinearLayout layoutLevels;
     Button btnStartGame;
@@ -25,7 +27,7 @@ public class PictureGameLevels extends AppCompatActivity implements WealthInitia
     ImageButton btnSettings, btnStore;
 
     Wealth wealth;
-
+    Guide guide;
     int gameLevel = 0;
 
     @Override
@@ -36,18 +38,18 @@ public class PictureGameLevels extends AppCompatActivity implements WealthInitia
         init();
 
         btnSettings.setOnClickListener(view -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             GoSomewhere.goToSettings(PictureGameLevels.this, "PICTURE_GAME_LEVELS");
             disableAllViews();
         });
         btnStore.setOnClickListener(view -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             GoSomewhere.goToStore(PictureGameLevels.this, "PICTURE_GAME_LEVELS");
             disableAllViews();
         });
 
         btnStartGame.setOnClickListener(view -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             if (gameLevel == 0) {
                 Toast.makeText(PictureGameLevels.this, "No level is selected.", Toast.LENGTH_SHORT).show();
             } else {
@@ -63,7 +65,7 @@ public class PictureGameLevels extends AppCompatActivity implements WealthInitia
             Button btn = (layoutLevels.getChildAt(i) instanceof Button ? (Button) layoutLevels.getChildAt(i) : null);
             if (btn == null) return;
             btn.setOnClickListener(view -> {
-                Sound.playSoundSound();
+                Sound.playClickSound();
                 gameLevel = Integer.parseInt((String) view.getTag());
                 for (int j = 0; j < layoutLevels.getChildCount(); j++) {
                     layoutLevels.getChildAt(j).animate().scaleY(1).scaleX(1).setDuration(300);
@@ -75,8 +77,10 @@ public class PictureGameLevels extends AppCompatActivity implements WealthInitia
 
     public void init() {
         initWidgets();
-        Sound.initSoundPool(this);
+        Sound.initClickSoundPool(this);
         initWealth();
+        initGuide();
+        showGuide();
     }
 
     public void initWidgets() {
@@ -94,7 +98,7 @@ public class PictureGameLevels extends AppCompatActivity implements WealthInitia
 
     @Override
     public void onBackPressed() {
-        Sound.playSoundSound();
+        Sound.playClickSound();
         GoSomewhere.goSomewhere(this, Games.class);
     }
 
@@ -106,5 +110,16 @@ public class PictureGameLevels extends AppCompatActivity implements WealthInitia
         btnStartGame.setEnabled(false);
         btnSettings.setEnabled(false);
         btnStore.setEnabled(false);
+    }
+
+    @Override
+    public void initGuide() {
+        guide = new Guide(this, "PICTURE_GAME_SELECTION", new String[]{"Eye", "Timer", "English Word"}, new String[]{"چشم", "تایمر", "لغت انگلیسی"}, new int[]{R.drawable.guide_eye, R.drawable.guide_timer, R.drawable.guide_english_word});
+        guide.initGuide(guide);
+    }
+
+    @Override
+    public void showGuide() {
+        guide.showGuide(guide);
     }
 }

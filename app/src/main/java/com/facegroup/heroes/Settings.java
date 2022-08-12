@@ -8,14 +8,20 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.facegroup.heroes.Biography.Biographies;
+import com.facegroup.heroes.Database.Database;
 import com.facegroup.heroes.Games.Games;
 import com.facegroup.heroes.Games.PictureGame.PictureGameLevels;
+import com.facegroup.heroes.Guide.Guide;
+import com.facegroup.heroes.Guide.GuideInitialization;
 
-public class Settings extends AppCompatActivity {
+public class Settings extends AppCompatActivity implements GuideInitialization {
 
-    Button btnUpdateProfile, btnAboutUs;
+    Button btnUpdateProfile, btnAboutUs, btnResetGuides;
     String cameFromWhere;
     SharedPreferences sharedPreferences;
+
+    Database database;
+    Guide guide;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +31,20 @@ public class Settings extends AppCompatActivity {
         init();
         btnUpdateProfile.setOnClickListener(view -> {
             GoSomewhere.goSomewhere(Settings.this, Registration.class, "SETTINGS", "CAME_FROM_SETTINGS");
-            Sound.playSoundSound();
+            Sound.playClickSound();
         });
         btnAboutUs.setOnClickListener(view -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             GoSomewhere.goSomewhere(Settings.this, AboutUs.class);
         });
+
+        btnResetGuides.setOnClickListener(view -> resetGuide());
+    }
+
+    public void resetGuide() {
+        database.resetAllGuides();
+        initGuide();
+        showGuide();
     }
 
     public void initCameFromWhere() {
@@ -40,18 +54,22 @@ public class Settings extends AppCompatActivity {
 
     public void init() {
         initWidgets();
-        Sound.initSoundPool(this);
+        database = new Database(this);
+        Sound.initClickSoundPool(this);
         initCameFromWhere();
+        initGuide();
+        showGuide();
     }
 
     public void initWidgets() {
         btnUpdateProfile = findViewById(R.id.btn_update_profile_settings);
         btnAboutUs = findViewById(R.id.btn_about_us_settings);
+        btnResetGuides = findViewById(R.id.btn_reset_guide_settings);
     }
 
     @Override
     public void onBackPressed() {
-        Sound.playSoundSound();
+        Sound.playClickSound();
         switch (cameFromWhere) {
             case "HOME":
                 GoSomewhere.goSomewhere(this, Home.class);
@@ -69,5 +87,16 @@ public class Settings extends AppCompatActivity {
                 GoSomewhere.goSomewhere(this, Biographies.class);
                 break;
         }
+    }
+
+    @Override
+    public void initGuide() {
+        guide = new Guide(this, "SETTINGS", new String[]{"Eye", "Timer", "English Word"}, new String[]{"چشم", "تایمر", "لغت انگلیسی"}, new int[]{R.drawable.guide_eye, R.drawable.guide_timer, R.drawable.guide_english_word});
+        guide.initGuide(guide);
+    }
+
+    @Override
+    public void showGuide() {
+        guide.showGuide(guide);
     }
 }

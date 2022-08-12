@@ -21,6 +21,8 @@ import com.facegroup.heroes.Animation;
 import com.facegroup.heroes.Database.Database;
 import com.facegroup.heroes.DisableViews;
 import com.facegroup.heroes.GoSomewhere;
+import com.facegroup.heroes.Guide.Guide;
+import com.facegroup.heroes.Guide.GuideInitialization;
 import com.facegroup.heroes.Home;
 import com.facegroup.heroes.R;
 import com.facegroup.heroes.Sound;
@@ -30,12 +32,13 @@ import com.facegroup.heroes.Wealth.WealthInitialization;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Biographies extends AppCompatActivity implements WealthInitialization, DisableViews, PersonUtils, Animation {
+public class Biographies extends AppCompatActivity implements WealthInitialization, DisableViews, PersonUtils, Animation, GuideInitialization {
 
     LinearLayout layoutPeople;
 
     ImageButton btnSettings, btnStore;
     Wealth wealth;
+    Guide guide;
 
     List<Person> peopleList;
     List<Boolean> peopleUnlockStatusList;
@@ -63,12 +66,12 @@ public class Biographies extends AppCompatActivity implements WealthInitializati
 
         btnStore.setOnClickListener(view -> {
             disableAllViews();
-            Sound.playSoundSound();
+            Sound.playClickSound();
             GoSomewhere.goToStore(Biographies.this, "BIOGRAPHIES");
         });
         btnSettings.setOnClickListener(view -> {
             disableAllViews();
-            Sound.playSoundSound();
+            Sound.playClickSound();
             GoSomewhere.goToSettings(Biographies.this, "BIOGRAPHIES");
         });
 
@@ -77,11 +80,13 @@ public class Biographies extends AppCompatActivity implements WealthInitializati
     public void init() {
         initWidgets();
         database = new Database(this);
-        Sound.initSoundPool(this);
+        Sound.initClickSoundPool(this);
         addPeople();
         showPeopleToList();
         initWealth();
         initLayoutPurchasePerson();
+        initGuide();
+        showGuide();
     }
 
     public void initWidgets() {
@@ -187,18 +192,18 @@ public class Biographies extends AppCompatActivity implements WealthInitializati
         imgPersonPriceUnitPP.setBackgroundResource(priceUnitImage);
         imgPersonProfileImagePP.setBackgroundResource(person.getUnlockedProfileImage());
         btnPurchasePersonPP.setOnClickListener(view -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             buyPerson(person);
         });
         btnCancelPurchasePersonPP.setOnClickListener(view -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             layoutPurchasePerson.setVisibility(View.GONE);
         });
     }
 
     @Override
     public void onBackPressed() {
-        Sound.playSoundSound();
+        Sound.playClickSound();
         GoSomewhere.goSomewhere(this, Home.class);
     }
 
@@ -268,7 +273,7 @@ public class Biographies extends AppCompatActivity implements WealthInitializati
 
     @Override
     public void selectPerson(View view, Person person) {
-        Sound.playSoundSound();
+        Sound.playClickSound();
         if (person.isUnlock()) {
             disableAllViews();
             sendDataToBiography(view, person);
@@ -314,6 +319,16 @@ public class Biographies extends AppCompatActivity implements WealthInitializati
         view.animate().scaleY(0.8f).scaleX(0.8f).setDuration(200);
     }
 
+    @Override
+    public void initGuide() {
+        guide = new Guide(this, "BIOGRAPHIES", new String[]{"Eye", "Timer", "English Word"}, new String[]{"چشم", "تایمر", "لغت انگلیسی"}, new int[]{R.drawable.guide_eye, R.drawable.guide_timer, R.drawable.guide_english_word});
+        guide.initGuide(guide);
+    }
+
+    @Override
+    public void showGuide() {
+        guide.showGuide(guide);
+    }
 }
 
 

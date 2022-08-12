@@ -1,98 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/picture_game_background"
-    android:orientation="vertical"
     tools:context=".Games.PictureGame.PictureGameLevels">
-
-    <include layout="@layout/settings__wealth_status__store" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_weight="9"
-        android:gravity="center"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--Game picture count-->
+        <include layout="@layout/settings__wealth_status__store" />
+
         <LinearLayout
-            android:id="@+id/layout_picture_game_levels"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="30dp"
-            android:orientation="horizontal">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/image_frame1"
-                android:button="@android:color/transparent"
-                android:gravity="center"
-                android:tag="12"
-                android:text="@string/_12"
-                android:textColor="#FAFAFA"
-                android:textSize="24sp" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/image_frame1"
-                android:button="@android:color/transparent"
-                android:gravity="center"
-                android:tag="14"
-                android:text="@string/_14"
-                android:textColor="#FAFAFA"
-                android:textSize="24sp" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/image_frame1"
-                android:button="@android:color/transparent"
-                android:gravity="center"
-                android:tag="16"
-                android:text="@string/_16"
-                android:textColor="#FAFAFA"
-                android:textSize="24sp" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/image_frame1"
-                android:button="@android:color/transparent"
-                android:gravity="center"
-                android:tag="18"
-                android:text="@string/_18"
-                android:textColor="#FAFAFA"
-                android:textSize="24sp" />
-
-
-        </LinearLayout>
-
-        <!--Start Game-->
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_start_picture_game_picture_game_levels"
-            android:layout_width="170dp"
-            android:layout_height="70dp"
-            android:background="@drawable/image_frame1"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="9"
             android:gravity="center"
-            android:padding="5dp"
-            android:text="@string/start_game"
-            android:textColor="#fff"
-            android:textSize="20sp" />
-    </LinearLayout>
+            android:orientation="vertical">
 
-</LinearLayout>
+            <!--Game picture count-->
+            <LinearLayout
+                android:id="@+id/layout_picture_game_levels"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="30dp"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/image_frame1"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:tag="12"
+                    android:text="@string/_12"
+                    android:textColor="#FAFAFA"
+                    android:textSize="24sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/image_frame1"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:tag="14"
+                    android:text="@string/_14"
+                    android:textColor="#FAFAFA"
+                    android:textSize="24sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/image_frame1"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:tag="16"
+                    android:text="@string/_16"
+                    android:textColor="#FAFAFA"
+                    android:textSize="24sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/image_frame1"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:tag="18"
+                    android:text="@string/_18"
+                    android:textColor="#FAFAFA"
+                    android:textSize="24sp" />
+
+
+            </LinearLayout>
+
+            <!--Start Game-->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_start_picture_game_picture_game_levels"
+                android:layout_width="170dp"
+                android:layout_height="70dp"
+                android:background="@drawable/image_frame1"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/start_game"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
+    <!--    guide-->
+    <RelativeLayout
+        android:id="@+id/layout_guide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent" />
+</RelativeLayout>

@@ -62,7 +62,7 @@ public class AboutUs extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Sound.playSoundSound();
+        Sound.playClickSound();
         stopMusic();
         GoSomewhere.goSomewhere(this, Settings.class);
     }

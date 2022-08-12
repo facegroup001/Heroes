@@ -11,13 +11,15 @@ import androidx.annotation.Nullable;
 
 import com.facegroup.heroes.Database.Biography.BiographyDatabase;
 import com.facegroup.heroes.Database.Biography.BiographyInitialization;
+import com.facegroup.heroes.Database.Guide.GuideDatabase;
+import com.facegroup.heroes.Database.Guide.GuideDatabaseInitialization;
 import com.facegroup.heroes.Database.Profile.ProfileDatabase;
 import com.facegroup.heroes.Database.Profile.ProfileDatabaseInitialization;
 import com.facegroup.heroes.Database.Wealth.WealthDatabase;
 import com.facegroup.heroes.Database.Wealth.WealthDatabaseInitialization;
 import com.facegroup.heroes.R;
 
-public class Database extends SQLiteOpenHelper implements ProfileDatabaseInitialization, WealthDatabaseInitialization, BiographyInitialization {
+public class Database extends SQLiteOpenHelper implements ProfileDatabaseInitialization, WealthDatabaseInitialization, BiographyInitialization, GuideDatabaseInitialization {
 
     private static final int VERSION = 1;
     private static final String DATABASE_NAME = "HEROES";
@@ -34,6 +36,7 @@ public class Database extends SQLiteOpenHelper implements ProfileDatabaseInitial
         sqLiteDatabase.execSQL(ProfileDatabase.CREATE_TABLE_PROFILE);
         sqLiteDatabase.execSQL(WealthDatabase.CREATE_TABLE_WEALTH);
         sqLiteDatabase.execSQL(BiographyDatabase.CREATE_TABLE_BIOGRAPHY);
+        sqLiteDatabase.execSQL(GuideDatabase.CREATE_TABLE_GUIDE);
     }
 
     @Override
@@ -41,6 +44,7 @@ public class Database extends SQLiteOpenHelper implements ProfileDatabaseInitial
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ProfileDatabase.TABLE_PROFILE);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + WealthDatabase.TABLE_WEALTH);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + BiographyDatabase.TABLE_BIOGRAPHY);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + GuideDatabase.TABLE_GUIDE);
         onCreate(sqLiteDatabase);
     }
 
@@ -289,4 +293,208 @@ public class Database extends SQLiteOpenHelper implements ProfileDatabaseInitial
         }
         return backgroundMusic;
     }
+
+    @Override
+    public void insertAllGuides() {
+        ContentValues contentValues = GuideDatabase.insertAllGuide();
+        database.insert(GuideDatabase.TABLE_GUIDE, null, contentValues);
+    }
+
+    @Override
+    public void updateHomeGuide(boolean isAvailable) {
+        ContentValues contentValues = GuideDatabase.putHome(isAvailable);
+        database.update(GuideDatabase.TABLE_GUIDE, contentValues, null, null);
+    }
+
+    @SuppressLint("Range")
+    @Override
+    public boolean isHomeGuideAvailable() {
+        boolean isGuideAvailable = false;
+        @SuppressLint("Recycle") Cursor cursor = database.rawQuery("SELECT * FROM " + GuideDatabase.TABLE_GUIDE, null);
+        if (cursor.moveToFirst()) {
+            do {
+                isGuideAvailable = (cursor.getInt(cursor.getColumnIndex(GuideDatabase.DB_GUIDE_HOME)) == 1);
+            } while (cursor.moveToNext());
+        }
+        return isGuideAvailable;
+    }
+
+    @Override
+    public void updateSettingsGuide(boolean isAvailable) {
+        ContentValues contentValues = GuideDatabase.putSetting(isAvailable);
+        database.update(GuideDatabase.TABLE_GUIDE, contentValues, null, null);
+    }
+
+    @SuppressLint("Range")
+    @Override
+    public boolean isSettingsGuideAvailable() {
+        boolean isGuideAvailable = false;
+        @SuppressLint("Recycle") Cursor cursor = database.rawQuery("SELECT * FROM " + GuideDatabase.TABLE_GUIDE, null);
+        if (cursor.moveToFirst()) {
+            do {
+                isGuideAvailable = (cursor.getInt(cursor.getColumnIndex(GuideDatabase.DB_GUIDE_SETTINGS)) == 1);
+            } while (cursor.moveToNext());
+        }
+        return isGuideAvailable;
+    }
+
+    @Override
+    public void updateStoreGuide(boolean isAvailable) {
+        ContentValues contentValues = GuideDatabase.putStore(isAvailable);
+        database.update(GuideDatabase.TABLE_GUIDE, contentValues, null, null);
+    }
+
+    @SuppressLint("Range")
+    @Override
+    public boolean isStoreGuideAvailable() {
+        boolean isGuideAvailable = false;
+        @SuppressLint("Recycle") Cursor cursor = database.rawQuery("SELECT * FROM " + GuideDatabase.TABLE_GUIDE, null);
+        if (cursor.moveToFirst()) {
+            do {
+                isGuideAvailable = (cursor.getInt(cursor.getColumnIndex(GuideDatabase.DB_GUIDE_STORE)) == 1);
+            } while (cursor.moveToNext());
+        }
+        return isGuideAvailable;
+    }
+
+    @Override
+    public void updateGamesGuide(boolean isAvailable) {
+        ContentValues contentValues = GuideDatabase.putGames(isAvailable);
+        database.update(GuideDatabase.TABLE_GUIDE, contentValues, null, null);
+    }
+
+    @SuppressLint("Range")
+    @Override
+    public boolean isGamesGuideAvailable() {
+        boolean isGuideAvailable = false;
+        @SuppressLint("Recycle") Cursor cursor = database.rawQuery("SELECT * FROM " + GuideDatabase.TABLE_GUIDE, null);
+        if (cursor.moveToFirst()) {
+            do {
+                isGuideAvailable = (cursor.getInt(cursor.getColumnIndex(GuideDatabase.DB_GUIDE_GAMES)) == 1);
+            } while (cursor.moveToNext());
+        }
+        return isGuideAvailable;
+    }
+
+    @Override
+    public void updateBiographiesGuide(boolean isAvailable) {
+        ContentValues contentValues = GuideDatabase.putBiographies(isAvailable);
+        database.update(GuideDatabase.TABLE_GUIDE, contentValues, null, null);
+    }
+
+    @SuppressLint("Range")
+    @Override
+    public boolean isBiographiesGuideAvailable() {
+        boolean isGuideAvailable = false;
+        @SuppressLint("Recycle") Cursor cursor = database.rawQuery("SELECT * FROM " + GuideDatabase.TABLE_GUIDE, null);
+        if (cursor.moveToFirst()) {
+            do {
+                isGuideAvailable = (cursor.getInt(cursor.getColumnIndex(GuideDatabase.DB_GUIDE_BIOGRAPHIES)) == 1);
+            } while (cursor.moveToNext());
+        }
+        return isGuideAvailable;
+    }
+
+    @Override
+    public void updateBiographyGuide(boolean isAvailable) {
+        ContentValues contentValues = GuideDatabase.putBiography(isAvailable);
+        database.update(GuideDatabase.TABLE_GUIDE, contentValues, null, null);
+    }
+
+    @SuppressLint("Range")
+    @Override
+    public boolean isBiographyGuideAvailable() {
+        boolean isGuideAvailable = false;
+        @SuppressLint("Recycle") Cursor cursor = database.rawQuery("SELECT * FROM " + GuideDatabase.TABLE_GUIDE, null);
+        if (cursor.moveToFirst()) {
+            do {
+                isGuideAvailable = (cursor.getInt(cursor.getColumnIndex(GuideDatabase.DB_GUIDE_BIOGRAPHY)) == 1);
+            } while (cursor.moveToNext());
+        }
+        return isGuideAvailable;
+    }
+
+    @Override
+    public void updatePictureGameSelectionGuide(boolean isAvailable) {
+        ContentValues contentValues = GuideDatabase.putPictureGameSelection(isAvailable);
+        database.update(GuideDatabase.TABLE_GUIDE, contentValues, null, null);
+    }
+
+    @SuppressLint("Range")
+    @Override
+    public boolean isPictureGameSelectionGuideAvailable() {
+        boolean isGuideAvailable = false;
+        @SuppressLint("Recycle") Cursor cursor = database.rawQuery("SELECT * FROM " + GuideDatabase.TABLE_GUIDE, null);
+        if (cursor.moveToFirst()) {
+            do {
+                isGuideAvailable = (cursor.getInt(cursor.getColumnIndex(GuideDatabase.DB_GUIDE_PICTURE_GAME_SELECTION)) == 1);
+            } while (cursor.moveToNext());
+        }
+        return isGuideAvailable;
+    }
+
+    @Override
+    public boolean isGuideAvailable(String whichGuide) {
+        boolean isGuideAvailable = false;
+        switch (whichGuide) {
+            case "HOME":
+                isGuideAvailable = isHomeGuideAvailable();
+                break;
+            case "SETTINGS":
+                isGuideAvailable = isSettingsGuideAvailable();
+                break;
+            case "STORE":
+                isGuideAvailable = isStoreGuideAvailable();
+                break;
+            case "BIOGRAPHY":
+                isGuideAvailable = isBiographyGuideAvailable();
+                break;
+            case "BIOGRAPHIES":
+                isGuideAvailable = isBiographiesGuideAvailable();
+                break;
+            case "GAMES":
+                isGuideAvailable = isGamesGuideAvailable();
+                break;
+            case "PICTURE_GAME_SELECTION":
+                isGuideAvailable = isPictureGameSelectionGuideAvailable();
+                break;
+        }
+        return isGuideAvailable;
+    }
+
+    @Override
+    public void updateGuide(String whichGuide, boolean isAvailable) {
+        ContentValues contentValues = new ContentValues();
+        switch (whichGuide) {
+            case "HOME":
+                contentValues = GuideDatabase.putHome(isAvailable);
+                break;
+            case "SETTINGS":
+                contentValues = GuideDatabase.putSetting(isAvailable);
+                break;
+            case "STORE":
+                contentValues = GuideDatabase.putStore(isAvailable);
+                break;
+            case "BIOGRAPHIES":
+                contentValues = GuideDatabase.putBiographies(isAvailable);
+                break;
+            case "BIOGRAPHY":
+                contentValues = GuideDatabase.putBiography(isAvailable);
+                break;
+            case "GAMES":
+                contentValues = GuideDatabase.putGames(isAvailable);
+                break;
+            case "PICTURE_GAME_SELECTION":
+                contentValues = GuideDatabase.putPictureGameSelection(isAvailable);
+                break;
+        }
+        database.update(GuideDatabase.TABLE_GUIDE, contentValues, null, null);
+    }
+
+    @Override
+    public void resetAllGuides() {
+        ContentValues contentValues = GuideDatabase.insertAllGuide();
+        database.update(GuideDatabase.TABLE_GUIDE, contentValues, null, null);
+    }
+
 }

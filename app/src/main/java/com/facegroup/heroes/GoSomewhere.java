@@ -48,8 +48,8 @@ public class GoSomewhere {
     }
 
     public static void goToInstagram(Activity activity, String username) {
-        Sound.initSoundPool(activity);
-        Sound.playSoundSound();
+        Sound.initClickSoundPool(activity);
+        Sound.playClickSound();
         Uri uri = Uri.parse("https://www.instagram.com/" + username + "/");
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         activity.startActivity(intent);

@@ -41,25 +41,25 @@ public class Home extends AppCompatActivity implements WealthInitialization, Ani
         init();
 
         btnSettings.setOnClickListener(view -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             GoSomewhere.goToSettings(Home.this, "HOME");
             disableAllViews();
         });
         btnStore.setOnClickListener(view -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             GoSomewhere.goToStore(Home.this, "HOME");
             disableAllViews();
         });
 
         btnPartBiography.setOnClickListener(view -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             disableAllViews();
             decreaseViewSize(view);
             new Handler().postDelayed(() -> increaseViewSize(view), 300);
             new Handler().postDelayed(this::goToBiographies, 500);
         });
         btnPartGame.setOnClickListener(view -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             disableAllViews();
             decreaseViewSize(view);
             new Handler().postDelayed(() -> increaseViewSize(view), 300);
@@ -72,7 +72,7 @@ public class Home extends AppCompatActivity implements WealthInitialization, Ani
     public void init() {
         initWidgets();
         initWealth();
-        Sound.initSoundPool(this);
+        Sound.initClickSoundPool(this);
         database = new Database(this);
         setUsername();
         setProfileImage();
@@ -126,7 +126,7 @@ public class Home extends AppCompatActivity implements WealthInitialization, Ani
 
     @Override
     public void onBackPressed() {
-        Sound.playSoundSound();
+        Sound.playClickSound();
         if (backPressedCounter == 1) {
             finish();
         } else {
@@ -146,12 +146,12 @@ public class Home extends AppCompatActivity implements WealthInitialization, Ani
 
     @Override
     public void initGuide() {
-        guide = new Guide(this, "HOME", new String[]{"چشم", "تایمر", "لغت انگلیسی"}, new String[]{"Eye", "Timer", "English Word"}, new int[]{R.drawable.guide_eye, R.drawable.guide_timer, R.drawable.guide_english_word});
-        guide.initGuide(this, guide);
+        guide = new Guide(this, "HOME", new String[]{"Eye", "Timer", "English Word"}, new String[]{"چشم", "تایمر", "لغت انگلیسی"}, new int[]{R.drawable.guide_eye, R.drawable.guide_timer, R.drawable.guide_english_word});
+        guide.initGuide(guide);
     }
 
     @Override
     public void showGuide() {
-        guide.showGuide(this, guide);
+        guide.showGuide(guide);
     }
 }

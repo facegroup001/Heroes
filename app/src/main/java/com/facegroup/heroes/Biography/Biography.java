@@ -24,6 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.facegroup.heroes.Database.Database;
 import com.facegroup.heroes.DisableViews;
 import com.facegroup.heroes.GoSomewhere;
+import com.facegroup.heroes.Guide.Guide;
+import com.facegroup.heroes.Guide.GuideInitialization;
 import com.facegroup.heroes.R;
 import com.facegroup.heroes.Sound;
 
@@ -31,7 +33,7 @@ import java.util.Locale;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
-public class Biography extends AppCompatActivity implements DisableViews {
+public class Biography extends AppCompatActivity implements DisableViews, GuideInitialization {
 
     ImageButton btnChangeBiographyLanguage;
     ImageButton btnNextPage, btnPreviousPage;
@@ -43,6 +45,7 @@ public class Biography extends AppCompatActivity implements DisableViews {
     ImageView imgBiography;
     TextView tvName, tvBiography;
 
+    Guide guide;
     MediaPlayer mpMusic;
 
     private static final int MINIMUM_TEXT_SIZE = 18;
@@ -86,14 +89,14 @@ public class Biography extends AppCompatActivity implements DisableViews {
             new Handler().postDelayed(this::enableViews, 200);
         });
         btnChangeBiographyLanguage.setOnClickListener(view -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             disableAllViews();
             view.animate().rotationYBy(360).setDuration(500);
             new Handler().postDelayed(this::enableViews, 500);
             changeBiographyLanguage();
         });
         btnPlayMusic.setOnClickListener(view -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             if (mpMusic.isPlaying()) {
                 pauseMusic();
             } else {
@@ -101,14 +104,14 @@ public class Biography extends AppCompatActivity implements DisableViews {
             }
         });
         btnZoomOutText.setOnClickListener(view -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             if (database.getBiographyTextSize() > MINIMUM_TEXT_SIZE) {
                 database.updateBiographyTextSize((database.getBiographyTextSize() - 1));
                 tvBiography.setTextSize(TypedValue.COMPLEX_UNIT_SP, database.getBiographyTextSize());
             }
         });
         btnZoomInText.setOnClickListener(view -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             if (database.getBiographyTextSize() < MAXIMUM_TEXT_SIZE) {
                 database.updateBiographyTextSize((database.getBiographyTextSize() + 1));
                 tvBiography.setTextSize(TypedValue.COMPLEX_UNIT_SP, database.getBiographyTextSize());
@@ -124,7 +127,7 @@ public class Biography extends AppCompatActivity implements DisableViews {
             }
         });
         btnChangeTextStyle.setOnClickListener(view -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             if (biographyTextStyle == 3) {
                 biographyTextStyle = -1;
             }
@@ -133,7 +136,7 @@ public class Biography extends AppCompatActivity implements DisableViews {
             tvBiography.setTypeface(Typeface.DEFAULT, biographyTextStyle);
         });
         btnChangeBiographyTextColor.setOnClickListener(view -> {
-            Sound.playSoundSound();
+            Sound.playClickSound();
             initColorPickerDialog();
             colorPickerDialog.show();
         });
@@ -146,12 +149,12 @@ public class Biography extends AppCompatActivity implements DisableViews {
         colorPickerDialog = new AmbilWarnaDialog(Biography.this, biographyTextColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
             @Override
             public void onCancel(AmbilWarnaDialog dialog) {
-                Sound.playSoundSound();
+                Sound.playClickSound();
             }
 
             @Override
             public void onOk(AmbilWarnaDialog dialog, int color) {
-                Sound.playSoundSound();
+                Sound.playClickSound();
                 database.updateBiographyTextColor(color);
                 tvBiography.setTextColor(database.getBiographyTextColor());
             }
@@ -348,6 +351,8 @@ public class Biography extends AppCompatActivity implements DisableViews {
         bounceAnimation();
         initPlayMusic();
         initWords();
+        initGuide();
+        showGuide();
     }
 
     public void initWidgets() {
@@ -384,7 +389,7 @@ public class Biography extends AppCompatActivity implements DisableViews {
     @Override
     public void onBackPressed() {
         pauseMusic();
-        Sound.playSoundSound();
+        Sound.playClickSound();
         GoSomewhere.goSomewhere(this, Biographies.class);
     }
 
@@ -399,5 +404,16 @@ public class Biography extends AppCompatActivity implements DisableViews {
         btnPreviousPage.setEnabled(true);
         btnNextPage.setEnabled(true);
         btnChangeBiographyLanguage.setEnabled(true);
+    }
+
+    @Override
+    public void initGuide() {
+        guide = new Guide(this, "BIOGRAPHY", new String[]{"Eye", "Timer", "English Word"}, new String[]{"چشم", "تایمر", "لغت انگلیسی"}, new int[]{R.drawable.guide_eye, R.drawable.guide_timer, R.drawable.guide_english_word});
+        guide.initGuide(guide);
+    }
+
+    @Override
+    public void showGuide() {
+        guide.showGuide(guide);
     }
 }
