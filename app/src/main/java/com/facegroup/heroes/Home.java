@@ -42,12 +42,12 @@ public class Home extends AppCompatActivity implements WealthInitialization, Ani
 
         btnSettings.setOnClickListener(view -> {
             Sound.playClickSound();
-            GoSomewhere.goToSettings(Home.this, "HOME");
+            GoSomewhere.goToSettings(Home.this, ActivitiesNames.HOME.name());
             disableAllViews();
         });
         btnStore.setOnClickListener(view -> {
             Sound.playClickSound();
-            GoSomewhere.goToStore(Home.this, "HOME");
+            GoSomewhere.goToStore(Home.this, ActivitiesNames.HOME.name());
             disableAllViews();
         });
 
@@ -146,7 +146,7 @@ public class Home extends AppCompatActivity implements WealthInitialization, Ani
 
     @Override
     public void initGuide() {
-        guide = new Guide(this, "HOME", new String[]{"Eye", "Timer", "English Word"}, new String[]{"چشم", "تایمر", "لغت انگلیسی"}, new int[]{R.drawable.guide_eye, R.drawable.guide_timer, R.drawable.guide_english_word});
+        guide = new Guide(this, ActivitiesNames.HOME.name(), new String[]{"Eye", "Timer", "English Word"}, new String[]{"چشم", "تایمر", "لغت انگلیسی"}, new int[]{R.drawable.guide_eye, R.drawable.guide_timer, R.drawable.guide_english_word});
         guide.initGuide(guide);
     }
 

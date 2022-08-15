@@ -9,8 +9,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import com.facegroup.heroes.Database.Biography.BiographyDatabase;
-import com.facegroup.heroes.Database.Biography.BiographyInitialization;
+import com.facegroup.heroes.Database.Biography.Biographies.BiographiesDatabase;
+import com.facegroup.heroes.Database.Biography.Biographies.BiographiesDatabaseInitialization;
+import com.facegroup.heroes.Database.Biography.Biography.BiographyDatabase;
+import com.facegroup.heroes.Database.Biography.Biography.BiographyInitialization;
 import com.facegroup.heroes.Database.Guide.GuideDatabase;
 import com.facegroup.heroes.Database.Guide.GuideDatabaseInitialization;
 import com.facegroup.heroes.Database.Profile.ProfileDatabase;
@@ -19,7 +21,7 @@ import com.facegroup.heroes.Database.Wealth.WealthDatabase;
 import com.facegroup.heroes.Database.Wealth.WealthDatabaseInitialization;
 import com.facegroup.heroes.R;
 
-public class Database extends SQLiteOpenHelper implements ProfileDatabaseInitialization, WealthDatabaseInitialization, BiographyInitialization, GuideDatabaseInitialization {
+public class Database extends SQLiteOpenHelper implements ProfileDatabaseInitialization, WealthDatabaseInitialization, BiographyInitialization, GuideDatabaseInitialization, BiographiesDatabaseInitialization {
 
     private static final int VERSION = 1;
     private static final String DATABASE_NAME = "HEROES";
@@ -37,6 +39,7 @@ public class Database extends SQLiteOpenHelper implements ProfileDatabaseInitial
         sqLiteDatabase.execSQL(WealthDatabase.CREATE_TABLE_WEALTH);
         sqLiteDatabase.execSQL(BiographyDatabase.CREATE_TABLE_BIOGRAPHY);
         sqLiteDatabase.execSQL(GuideDatabase.CREATE_TABLE_GUIDE);
+        sqLiteDatabase.execSQL(BiographiesDatabase.CREATE_TABLE_BIOGRAPHIES);
     }
 
     @Override
@@ -45,6 +48,8 @@ public class Database extends SQLiteOpenHelper implements ProfileDatabaseInitial
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + WealthDatabase.TABLE_WEALTH);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + BiographyDatabase.TABLE_BIOGRAPHY);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + GuideDatabase.TABLE_GUIDE);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + BiographyDatabase.TABLE_BIOGRAPHY);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + BiographiesDatabase.TABLE_BIOGRAPHIES);
         onCreate(sqLiteDatabase);
     }
 
@@ -415,19 +420,19 @@ public class Database extends SQLiteOpenHelper implements ProfileDatabaseInitial
     }
 
     @Override
-    public void updatePictureGameSelectionGuide(boolean isAvailable) {
-        ContentValues contentValues = GuideDatabase.putPictureGameSelection(isAvailable);
+    public void updatePictureGameLevelsGuide(boolean isAvailable) {
+        ContentValues contentValues = GuideDatabase.putPictureGameLevels(isAvailable);
         database.update(GuideDatabase.TABLE_GUIDE, contentValues, null, null);
     }
 
     @SuppressLint("Range")
     @Override
-    public boolean isPictureGameSelectionGuideAvailable() {
+    public boolean isPictureGameLevelsGuideAvailable() {
         boolean isGuideAvailable = false;
         @SuppressLint("Recycle") Cursor cursor = database.rawQuery("SELECT * FROM " + GuideDatabase.TABLE_GUIDE, null);
         if (cursor.moveToFirst()) {
             do {
-                isGuideAvailable = (cursor.getInt(cursor.getColumnIndex(GuideDatabase.DB_GUIDE_PICTURE_GAME_SELECTION)) == 1);
+                isGuideAvailable = (cursor.getInt(cursor.getColumnIndex(GuideDatabase.DB_GUIDE_PICTURE_GAME_LEVELS)) == 1);
             } while (cursor.moveToNext());
         }
         return isGuideAvailable;
@@ -455,8 +460,8 @@ public class Database extends SQLiteOpenHelper implements ProfileDatabaseInitial
             case "GAMES":
                 isGuideAvailable = isGamesGuideAvailable();
                 break;
-            case "PICTURE_GAME_SELECTION":
-                isGuideAvailable = isPictureGameSelectionGuideAvailable();
+            case "PICTURE_GAME_LEVELS":
+                isGuideAvailable = isPictureGameLevelsGuideAvailable();
                 break;
         }
         return isGuideAvailable;
@@ -484,8 +489,8 @@ public class Database extends SQLiteOpenHelper implements ProfileDatabaseInitial
             case "GAMES":
                 contentValues = GuideDatabase.putGames(isAvailable);
                 break;
-            case "PICTURE_GAME_SELECTION":
-                contentValues = GuideDatabase.putPictureGameSelection(isAvailable);
+            case "PICTURE_GAME_LEVELS":
+                contentValues = GuideDatabase.putPictureGameLevels(isAvailable);
                 break;
         }
         database.update(GuideDatabase.TABLE_GUIDE, contentValues, null, null);
@@ -497,4 +502,28 @@ public class Database extends SQLiteOpenHelper implements ProfileDatabaseInitial
         database.update(GuideDatabase.TABLE_GUIDE, contentValues, null, null);
     }
 
+    @Override
+    public void insertAllBiographies() {
+        ContentValues contentValues = BiographiesDatabase.insertAllBiographies();
+        database.insert(BiographiesDatabase.TABLE_BIOGRAPHIES, null, contentValues);
+    }
+
+    @SuppressLint("Range")
+    @Override
+    public boolean getBiographyPerson(int whichPerson) {
+        boolean isBiographyUnlock = false;
+        @SuppressLint("Recycle") Cursor cursor = database.rawQuery("SELECT * FROM " + BiographiesDatabase.TABLE_BIOGRAPHIES, null);
+        if (cursor.moveToFirst()) {
+            do {
+                isBiographyUnlock = (cursor.getInt(cursor.getColumnIndex(BiographiesDatabase.DB_PEOPLE[whichPerson])) == 1);
+            } while (cursor.moveToNext());
+        }
+        return isBiographyUnlock;
+    }
+
+    @Override
+    public void updateBiographyPerson(int whichPerson) {
+        ContentValues contentValues = BiographiesDatabase.updateBiographyPerson(whichPerson);
+        database.update(BiographiesDatabase.TABLE_BIOGRAPHIES, contentValues, null, null);
+    }
 }

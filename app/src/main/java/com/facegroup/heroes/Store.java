@@ -38,7 +38,7 @@ public class Store extends AppCompatActivity implements WealthInitialization, Gu
         init();
         btnSettings.setOnClickListener(view -> {
             Sound.playClickSound();
-            GoSomewhere.goToSettings(Store.this, "STORE");
+            GoSomewhere.goToSettings(Store.this, ActivitiesNames.STORE.name());
         });
     }
 
@@ -103,7 +103,7 @@ public class Store extends AppCompatActivity implements WealthInitialization, Gu
 
     @Override
     public void initGuide() {
-        guide = new Guide(this, "STORE", new String[]{"Eye", "Timer", "English Word"}, new String[]{"چشم", "تایمر", "لغت انگلیسی"}, new int[]{R.drawable.guide_eye, R.drawable.guide_timer, R.drawable.guide_english_word});
+        guide = new Guide(this, ActivitiesNames.STORE.name(), new String[]{"Eye", "Timer", "English Word"}, new String[]{"چشم", "تایمر", "لغت انگلیسی"}, new int[]{R.drawable.guide_eye, R.drawable.guide_timer, R.drawable.guide_english_word});
         guide.initGuide(guide);
     }
 

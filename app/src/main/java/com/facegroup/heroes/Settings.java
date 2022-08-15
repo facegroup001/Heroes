@@ -30,7 +30,7 @@ public class Settings extends AppCompatActivity implements GuideInitialization {
         setContentView(R.layout.activity_settings);
         init();
         btnUpdateProfile.setOnClickListener(view -> {
-            GoSomewhere.goSomewhere(Settings.this, Registration.class, "SETTINGS", "CAME_FROM_SETTINGS");
+            GoSomewhere.goSomewhere(Settings.this, Registration.class, ActivitiesNames.SETTINGS.name(), "CAME_FROM_SETTINGS");
             Sound.playClickSound();
         });
         btnAboutUs.setOnClickListener(view -> {
@@ -49,7 +49,7 @@ public class Settings extends AppCompatActivity implements GuideInitialization {
 
     public void initCameFromWhere() {
         sharedPreferences = getSharedPreferences("SETTINGS_PREFERENCES", MODE_PRIVATE);
-        cameFromWhere = sharedPreferences.getString("SETTINGS", "");
+        cameFromWhere = sharedPreferences.getString(ActivitiesNames.SETTINGS.name(), "");
     }
 
     public void init() {
@@ -91,7 +91,7 @@ public class Settings extends AppCompatActivity implements GuideInitialization {
 
     @Override
     public void initGuide() {
-        guide = new Guide(this, "SETTINGS", new String[]{"Eye", "Timer", "English Word"}, new String[]{"چشم", "تایمر", "لغت انگلیسی"}, new int[]{R.drawable.guide_eye, R.drawable.guide_timer, R.drawable.guide_english_word});
+        guide = new Guide(this, ActivitiesNames.SETTINGS.name(), new String[]{"Eye", "Timer", "English Word"}, new String[]{"چشم", "تایمر", "لغت انگلیسی"}, new int[]{R.drawable.guide_eye, R.drawable.guide_timer, R.drawable.guide_english_word});
         guide.initGuide(guide);
     }
 

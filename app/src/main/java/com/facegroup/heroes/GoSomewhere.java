@@ -29,7 +29,7 @@ public class GoSomewhere {
         Intent intent = new Intent(activity, Settings.class);
         SharedPreferences sharedPreferences = activity.getSharedPreferences("SETTINGS_PREFERENCES", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("SETTINGS", className);
+        editor.putString(ActivitiesNames.SETTINGS.name(), className);
         editor.apply();
         activity.startActivity(intent);
         Animatoo.animateZoom(activity);
@@ -40,7 +40,7 @@ public class GoSomewhere {
         Intent intent = new Intent(activity, Store.class);
         SharedPreferences sharedPreferences = activity.getSharedPreferences("STORE_PREFERENCES", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("STORE", className);
+        editor.putString(ActivitiesNames.STORE.name(), className);
         editor.apply();
         activity.startActivity(intent);
         Animatoo.animateZoom(activity);

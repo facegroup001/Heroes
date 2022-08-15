@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.facegroup.heroes.ActivitiesNames;
 import com.facegroup.heroes.Animation;
 import com.facegroup.heroes.DisableViews;
 import com.facegroup.heroes.GoSomewhere;
@@ -36,12 +37,12 @@ public class Games extends AppCompatActivity implements WealthInitialization, An
 
         btnStore.setOnClickListener(view -> {
             Sound.playClickSound();
-            GoSomewhere.goToStore(Games.this, "GAMES");
+            GoSomewhere.goToStore(Games.this, ActivitiesNames.GAMES.name());
             disableAllViews();
         });
         btnSettings.setOnClickListener(view -> {
             Sound.playClickSound();
-            GoSomewhere.goToSettings(Games.this, "GAMES");
+            GoSomewhere.goToSettings(Games.this, ActivitiesNames.GAMES.name());
             disableAllViews();
         });
 
@@ -110,7 +111,7 @@ public class Games extends AppCompatActivity implements WealthInitialization, An
 
     @Override
     public void initGuide() {
-        guide = new Guide(this, "GAMES", new String[]{"Eye", "Timer", "English Word"}, new String[]{"چشم", "تایمر", "لغت انگلیسی"}, new int[]{R.drawable.guide_eye, R.drawable.guide_timer, R.drawable.guide_english_word});
+        guide = new Guide(this, ActivitiesNames.GAMES.name(), new String[]{"Eye", "Timer", "English Word"}, new String[]{"چشم", "تایمر", "لغت انگلیسی"}, new int[]{R.drawable.guide_eye, R.drawable.guide_timer, R.drawable.guide_english_word});
         guide.initGuide(guide);
     }
 

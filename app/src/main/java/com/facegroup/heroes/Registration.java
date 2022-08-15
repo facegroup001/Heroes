@@ -152,6 +152,8 @@ public class Registration extends AppCompatActivity implements DisableViews {
         database.insertWealth();
         database.insertBiographySettings();
         database.insertAllGuides();
+        database.insertAllBiographies();
+        database.updateBiographyPerson(0);
     }
 
     public void initWidgets() {

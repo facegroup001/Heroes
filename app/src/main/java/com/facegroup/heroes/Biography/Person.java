@@ -9,7 +9,6 @@ public class Person {
     private String[] englishWords, persianWords;
     private int[] images;
     private int lockedProfileImage, unlockedProfileImage;
-    private boolean isUnlock;
 
     public Person() {
     }
@@ -100,14 +99,6 @@ public class Person {
 
     public void setUnlockedProfileImage(int unlockedProfileImage) {
         this.unlockedProfileImage = unlockedProfileImage;
-    }
-
-    public boolean isUnlock() {
-        return isUnlock;
-    }
-
-    public void setUnlock(boolean unlock) {
-        isUnlock = unlock;
     }
 
 }

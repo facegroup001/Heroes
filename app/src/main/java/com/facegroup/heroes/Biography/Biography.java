@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.facegroup.heroes.ActivitiesNames;
 import com.facegroup.heroes.Database.Database;
 import com.facegroup.heroes.DisableViews;
 import com.facegroup.heroes.GoSomewhere;
@@ -408,7 +409,7 @@ public class Biography extends AppCompatActivity implements DisableViews, GuideI
 
     @Override
     public void initGuide() {
-        guide = new Guide(this, "BIOGRAPHY", new String[]{"Eye", "Timer", "English Word"}, new String[]{"چشم", "تایمر", "لغت انگلیسی"}, new int[]{R.drawable.guide_eye, R.drawable.guide_timer, R.drawable.guide_english_word});
+        guide = new Guide(this, ActivitiesNames.BIOGRAPHY.name(), new String[]{"Eye", "Timer", "English Word"}, new String[]{"چشم", "تایمر", "لغت انگلیسی"}, new int[]{R.drawable.guide_eye, R.drawable.guide_timer, R.drawable.guide_english_word});
         guide.initGuide(guide);
     }
 

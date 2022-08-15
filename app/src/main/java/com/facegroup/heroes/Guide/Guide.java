@@ -105,7 +105,8 @@ public class Guide {
 
     public void setGuideData(Guide guideData) {
         tvGuide.setText(isGuideEnglish ? guideData.getEnglishGuides()[guidePage] : guideData.getPersianGuides()[guidePage]);
-        tvActivityName.setText(guideData.getActivityName());
+        String activityName = guideData.getActivityName().replace('_', ' ');
+        tvActivityName.setText(activityName);
         imgGuide.setImageResource(guideData.getGuidesImages()[guidePage]);
         imgCharacter.setImageResource(Profile.getArrCharactersImages()[database.getImageIndex()]);
     }

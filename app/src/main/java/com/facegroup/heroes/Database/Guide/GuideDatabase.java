@@ -2,15 +2,17 @@ package com.facegroup.heroes.Database.Guide;
 
 import android.content.ContentValues;
 
+import com.facegroup.heroes.ActivitiesNames;
+
 public class GuideDatabase {
 
-    public static final String DB_GUIDE_HOME = "HOME";
-    public static final String DB_GUIDE_SETTINGS = "SETTINGS";
-    public static final String DB_GUIDE_STORE = "STORE";
-    public static final String DB_GUIDE_BIOGRAPHIES = "BIOGRAPHIES";
-    public static final String DB_GUIDE_BIOGRAPHY = "BIOGRAPHY";
-    public static final String DB_GUIDE_GAMES = "GAMES";
-    public static final String DB_GUIDE_PICTURE_GAME_SELECTION = "PICTURE_GAME_SELECTION";
+    public static final String DB_GUIDE_HOME = ActivitiesNames.HOME.name();
+    public static final String DB_GUIDE_SETTINGS = ActivitiesNames.SETTINGS.name();
+    public static final String DB_GUIDE_STORE = ActivitiesNames.STORE.name();
+    public static final String DB_GUIDE_BIOGRAPHIES = ActivitiesNames.BIOGRAPHIES.name();
+    public static final String DB_GUIDE_BIOGRAPHY = ActivitiesNames.BIOGRAPHY.name();
+    public static final String DB_GUIDE_GAMES = ActivitiesNames.GAMES.name();
+    public static final String DB_GUIDE_PICTURE_GAME_LEVELS = ActivitiesNames.PICTURE_GAME_LEVELS.name();
 
     public static final String TABLE_GUIDE = "TABLE_GUIDE";
     public static final String CREATE_TABLE_GUIDE = "CREATE TABLE IF NOT EXISTS " + TABLE_GUIDE + " ( " +
@@ -20,7 +22,7 @@ public class GuideDatabase {
             DB_GUIDE_BIOGRAPHIES + " BOOLEAN, " +
             DB_GUIDE_BIOGRAPHY + " BOOLEAN, " +
             DB_GUIDE_GAMES + " BOOLEAN, " +
-            DB_GUIDE_PICTURE_GAME_SELECTION + " BOOLEAN " +
+            DB_GUIDE_PICTURE_GAME_LEVELS + " BOOLEAN " +
             " )";
 
 
@@ -32,7 +34,7 @@ public class GuideDatabase {
         contentValues.put(DB_GUIDE_BIOGRAPHIES, true);
         contentValues.put(DB_GUIDE_BIOGRAPHY, true);
         contentValues.put(DB_GUIDE_GAMES, true);
-        contentValues.put(DB_GUIDE_PICTURE_GAME_SELECTION, true);
+        contentValues.put(DB_GUIDE_PICTURE_GAME_LEVELS, true);
         return contentValues;
     }
 
@@ -72,9 +74,9 @@ public class GuideDatabase {
         return contentValues;
     }
 
-    public static ContentValues putPictureGameSelection(boolean isAvailable) {
+    public static ContentValues putPictureGameLevels(boolean isAvailable) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DB_GUIDE_PICTURE_GAME_SELECTION, isAvailable);
+        contentValues.put(DB_GUIDE_PICTURE_GAME_LEVELS, isAvailable);
         return contentValues;
     }
 

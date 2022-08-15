@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.facegroup.heroes.ActivitiesNames;
 import com.facegroup.heroes.DisableViews;
 import com.facegroup.heroes.Games.Games;
 import com.facegroup.heroes.GoSomewhere;
@@ -39,12 +40,12 @@ public class PictureGameLevels extends AppCompatActivity implements WealthInitia
 
         btnSettings.setOnClickListener(view -> {
             Sound.playClickSound();
-            GoSomewhere.goToSettings(PictureGameLevels.this, "PICTURE_GAME_LEVELS");
+            GoSomewhere.goToSettings(PictureGameLevels.this, ActivitiesNames.PICTURE_GAME_LEVELS.name());
             disableAllViews();
         });
         btnStore.setOnClickListener(view -> {
             Sound.playClickSound();
-            GoSomewhere.goToStore(PictureGameLevels.this, "PICTURE_GAME_LEVELS");
+            GoSomewhere.goToStore(PictureGameLevels.this, ActivitiesNames.PICTURE_GAME_LEVELS.name());
             disableAllViews();
         });
 
@@ -114,7 +115,7 @@ public class PictureGameLevels extends AppCompatActivity implements WealthInitia
 
     @Override
     public void initGuide() {
-        guide = new Guide(this, "PICTURE_GAME_SELECTION", new String[]{"Eye", "Timer", "English Word"}, new String[]{"چشم", "تایمر", "لغت انگلیسی"}, new int[]{R.drawable.guide_eye, R.drawable.guide_timer, R.drawable.guide_english_word});
+        guide = new Guide(this, ActivitiesNames.PICTURE_GAME_LEVELS.name(), new String[]{"Eye", "Timer", "English Word"}, new String[]{"چشم", "تایمر", "لغت انگلیسی"}, new int[]{R.drawable.guide_eye, R.drawable.guide_timer, R.drawable.guide_english_word});
         guide.initGuide(guide);
     }
 

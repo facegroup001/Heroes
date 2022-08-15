@@ -28,9 +28,9 @@ public interface GuideDatabaseInitialization {
 
     boolean isBiographyGuideAvailable();
 
-    void updatePictureGameSelectionGuide(boolean isAvailable);
+    void updatePictureGameLevelsGuide(boolean isAvailable);
 
-    boolean isPictureGameSelectionGuideAvailable();
+    boolean isPictureGameLevelsGuideAvailable();
 
     boolean isGuideAvailable(String whichGuide);
 

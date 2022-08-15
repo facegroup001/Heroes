@@ -1,4 +1,4 @@
-package com.facegroup.heroes.Database.Biography;
+package com.facegroup.heroes.Database.Biography.Biography;
 
 public interface BiographyInitialization {
 

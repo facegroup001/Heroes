@@ -17,7 +17,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.facegroup.heroes.ActivitiesNames;
 import com.facegroup.heroes.Animation;
+import com.facegroup.heroes.Database.Biography.Biographies.BiographiesDatabase;
 import com.facegroup.heroes.Database.Database;
 import com.facegroup.heroes.DisableViews;
 import com.facegroup.heroes.GoSomewhere;
@@ -35,6 +37,8 @@ import java.util.List;
 public class Biographies extends AppCompatActivity implements WealthInitialization, DisableViews, PersonUtils, Animation, GuideInitialization {
 
     LinearLayout layoutPeople;
+
+    int selectedPersonFromLayout = 0;
 
     ImageButton btnSettings, btnStore;
     Wealth wealth;
@@ -67,12 +71,12 @@ public class Biographies extends AppCompatActivity implements WealthInitializati
         btnStore.setOnClickListener(view -> {
             disableAllViews();
             Sound.playClickSound();
-            GoSomewhere.goToStore(Biographies.this, "BIOGRAPHIES");
+            GoSomewhere.goToStore(Biographies.this, ActivitiesNames.BIOGRAPHIES.name());
         });
         btnSettings.setOnClickListener(view -> {
             disableAllViews();
             Sound.playClickSound();
-            GoSomewhere.goToSettings(Biographies.this, "BIOGRAPHIES");
+            GoSomewhere.goToSettings(Biographies.this, ActivitiesNames.BIOGRAPHIES.name());
         });
 
     }
@@ -87,6 +91,13 @@ public class Biographies extends AppCompatActivity implements WealthInitializati
         initLayoutPurchasePerson();
         initGuide();
         showGuide();
+    }
+
+    public void getPeopleStatusFromDatabase() {
+        peopleUnlockStatusList = new ArrayList<>();
+        for (int i = 0; i < BiographiesDatabase.DB_PEOPLE.length; i++) {
+            peopleUnlockStatusList.add(database.getBiographyPerson(i));
+        }
     }
 
     public void initWidgets() {
@@ -106,9 +117,8 @@ public class Biographies extends AppCompatActivity implements WealthInitializati
         person.setImages(new int[]{R.drawable.bill_gates1, R.drawable.bill_gates2, R.drawable.bill_gates3, R.drawable.bill_gates4});
         person.setLockedProfileImage(R.drawable.bill_gates_lock_profile);
         person.setUnlockedProfileImage(R.drawable.bill_gates_unlock_profile);
-        person.setPrice(100);
+        person.setPrice(10);
         person.setPriceUnit("COIN");
-        person.setUnlock(true);
         addPerson(person);
     }
 
@@ -123,8 +133,7 @@ public class Biographies extends AppCompatActivity implements WealthInitializati
         person.setImages(new int[]{R.drawable.mark_zuckerberg1, R.drawable.mark_zuckerberg2, R.drawable.mark_zuckerberg3, R.drawable.mark_zuckerberg4});
         person.setLockedProfileImage(R.drawable.mark_zuckerberg_lock_profile);
         person.setUnlockedProfileImage(R.drawable.mark_zuckerberg_unlock_profile);
-        person.setUnlock(false);
-        person.setPrice(90);
+        person.setPrice(20);
         person.setPriceUnit("COIN");
         addPerson(person);
     }
@@ -140,8 +149,7 @@ public class Biographies extends AppCompatActivity implements WealthInitializati
         person.setImages(new int[]{R.drawable.elon_musk1, R.drawable.elon_musk2, R.drawable.elon_musk3, R.drawable.elon_musk4});
         person.setLockedProfileImage(R.drawable.elon_musk_lock_profile);
         person.setUnlockedProfileImage(R.drawable.elon_musk_unlock_profile);
-        person.setUnlock(true);
-        person.setPrice(10);
+        person.setPrice(2);
         person.setPriceUnit("CARD");
         addPerson(person);
     }
@@ -154,6 +162,10 @@ public class Biographies extends AppCompatActivity implements WealthInitializati
         person1();
         person2();
         person3();
+        person1();
+        person2();
+        person3();
+        person1();
     }
 
     public void initLayoutPurchasePerson() {
@@ -229,18 +241,18 @@ public class Biographies extends AppCompatActivity implements WealthInitializati
         switch (person.getPriceUnit()) {
             case "CARD":
                 if (cardCount >= person.getPrice()) {
-                    person.setUnlock(true);
                     database.updateCardCount((database.getCardCount() - person.getPrice()));
                     wealth.assignWealth();
+                    database.updateBiographyPerson(selectedPersonFromLayout);
                 } else {
                     Toast.makeText(this, "You can not buy.", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case "COIN":
                 if (coinCount >= person.getPrice()) {
-                    person.setUnlock(true);
                     database.updateCoinCount((database.getCoinCount() - person.getPrice()));
                     wealth.assignWealth();
+                    database.updateBiographyPerson(selectedPersonFromLayout);
                 } else {
                     Toast.makeText(this, "You can not buy.", Toast.LENGTH_SHORT).show();
                 }
@@ -274,7 +286,7 @@ public class Biographies extends AppCompatActivity implements WealthInitializati
     @Override
     public void selectPerson(View view, Person person) {
         Sound.playClickSound();
-        if (person.isUnlock()) {
+        if (peopleUnlockStatusList.get(selectedPersonFromLayout)) {
             disableAllViews();
             sendDataToBiography(view, person);
         } else {
@@ -295,16 +307,20 @@ public class Biographies extends AppCompatActivity implements WealthInitializati
 
     @Override
     public void showPeopleToList() {
+        getPeopleStatusFromDatabase();
         layoutPeople.removeAllViews();
-        for (int i = 0; i < peopleList.size(); i++) {
+        for (int i = 0; i < (peopleList.size() - 1); i++) {
             LayoutInflater inflater = LayoutInflater.from(this);
             View view = inflater.inflate(R.layout.person_profile_image, layoutPeople, false);
             ImageButton img = view.findViewById(R.id.img_btn_profile_image);
             int h = layoutPeople.getLayoutParams().height;
             img.setLayoutParams(new LinearLayout.LayoutParams(h, h));
-            img.setBackgroundResource(peopleList.get(i).isUnlock() ? peopleList.get(i).getUnlockedProfileImage() : peopleList.get(i).getLockedProfileImage());
+            img.setBackgroundResource(peopleUnlockStatusList.get(i) ? peopleList.get(i).getUnlockedProfileImage() : peopleList.get(i).getLockedProfileImage());
             int finalI = i;
-            img.setOnClickListener(view1 -> selectPerson(view1, peopleList.get(finalI)));
+            img.setOnClickListener(view1 -> {
+                selectedPersonFromLayout = finalI;
+                selectPerson(view1, peopleList.get(finalI));
+            });
             layoutPeople.addView(view);
         }
     }
@@ -321,7 +337,7 @@ public class Biographies extends AppCompatActivity implements WealthInitializati
 
     @Override
     public void initGuide() {
-        guide = new Guide(this, "BIOGRAPHIES", new String[]{"Eye", "Timer", "English Word"}, new String[]{"چشم", "تایمر", "لغت انگلیسی"}, new int[]{R.drawable.guide_eye, R.drawable.guide_timer, R.drawable.guide_english_word});
+        guide = new Guide(this, ActivitiesNames.BIOGRAPHIES.name(), new String[]{"Eye", "Timer", "English Word"}, new String[]{"چشم", "تایمر", "لغت انگلیسی"}, new int[]{R.drawable.guide_eye, R.drawable.guide_timer, R.drawable.guide_english_word});
         guide.initGuide(guide);
     }
 
