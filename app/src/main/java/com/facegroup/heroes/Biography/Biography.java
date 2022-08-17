@@ -18,15 +18,18 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.facegroup.heroes.ActivitiesNames;
+import com.facegroup.heroes.ChooseBackgroundMusicDialog;
 import com.facegroup.heroes.Database.Database;
 import com.facegroup.heroes.DisableViews;
 import com.facegroup.heroes.GoSomewhere;
 import com.facegroup.heroes.Guide.Guide;
 import com.facegroup.heroes.Guide.GuideInitialization;
+import com.facegroup.heroes.Music;
 import com.facegroup.heroes.R;
 import com.facegroup.heroes.Sound;
 
@@ -41,6 +44,7 @@ public class Biography extends AppCompatActivity implements DisableViews, GuideI
     ImageButton btnZoomInText, btnZoomOutText;
     ImageButton btnPlayMusic, btnReadBiography;
     ImageButton btnChangeBiographyTextColor;
+    ImageButton btnChangeBackgroundMusic;
     ImageButton btnChangeTextStyle;
     TextView tvBiographyPageCount;
     ImageView imgBiography;
@@ -70,6 +74,8 @@ public class Biography extends AppCompatActivity implements DisableViews, GuideI
     Animation animationBlink, animationBounce;
 
     Database database;
+
+    boolean wasMusicOn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +146,18 @@ public class Biography extends AppCompatActivity implements DisableViews, GuideI
             Sound.playClickSound();
             initColorPickerDialog();
             colorPickerDialog.show();
+        });
+        btnChangeBackgroundMusic.setOnClickListener(view -> {
+            wasMusicOn = mpMusic.isPlaying();
+            pauseMusic();
+            ChooseBackgroundMusicDialog.showDialog(Biography.this, database.getBiographyBackgroundMusic(), (dialogInterface, i) -> {
+                database.updateBiographyBackgroundMusic(i);
+                initPlayMusic();
+                if (wasMusicOn) {
+                    playMusic();
+                }
+                dialogInterface.dismiss();
+            });
         });
 
         tvName.setOnClickListener(view -> view.startAnimation(animationBounce));
@@ -223,7 +241,7 @@ public class Biography extends AppCompatActivity implements DisableViews, GuideI
 
     public void initPlayMusic() {
         int backgroundMusic = database.getBiographyBackgroundMusic();
-        mpMusic = MediaPlayer.create(this, backgroundMusic);
+        mpMusic = MediaPlayer.create(this, Music.musics[backgroundMusic]);
     }
 
     public void pauseMusic() {
@@ -370,6 +388,7 @@ public class Biography extends AppCompatActivity implements DisableViews, GuideI
         btnPlayMusic = findViewById(R.id.img_btn_play_music_biography);
         btnChangeTextStyle = findViewById(R.id.img_btn_change_biography_text_style);
         btnChangeBiographyTextColor = findViewById(R.id.img_btn_change_biography_text_color);
+        btnChangeBackgroundMusic = findViewById(R.id.img_btn_change_background_music_biography);
     }
 
     public void getPersonInfo() {

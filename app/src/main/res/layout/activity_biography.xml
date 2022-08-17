@@ -138,6 +138,7 @@
                                         android:background="@drawable/zoom_out" />
 
                                     <ImageButton
+                                        android:id="@+id/img_btn_change_background_music_biography"
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
                                         android:layout_margin="5dp"

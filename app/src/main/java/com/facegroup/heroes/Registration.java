@@ -154,6 +154,18 @@ public class Registration extends AppCompatActivity implements DisableViews {
         database.insertAllGuides();
         database.insertAllBiographies();
         database.updateBiographyPerson(0);
+        insertAllBackgroundMusics();
+    }
+
+    public void updateUser() {
+        database.updateImageIndex(imgPosition);
+        database.updateUsername(tvUsername.getText().toString());
+        database.updateHasUsedOwnName(cbUseMyName.isChecked());
+        database.updateIsUserRegistered();
+    }
+
+    public void insertAllBackgroundMusics() {
+        database.insertBiographyBackgroundMusic();
     }
 
     public void initWidgets() {
@@ -174,12 +186,6 @@ public class Registration extends AppCompatActivity implements DisableViews {
         return isValid;
     }
 
-    public void updateUser() {
-        database.updateImageIndex(imgPosition);
-        database.updateUsername(tvUsername.getText().toString());
-        database.updateHasUsedOwnName(cbUseMyName.isChecked());
-        database.updateIsUserRegistered();
-    }
 
     public boolean isUserRegistered() {
         return database.isUserRegistered();

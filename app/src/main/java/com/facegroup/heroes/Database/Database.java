@@ -19,6 +19,7 @@ import com.facegroup.heroes.Database.Profile.ProfileDatabase;
 import com.facegroup.heroes.Database.Profile.ProfileDatabaseInitialization;
 import com.facegroup.heroes.Database.Wealth.WealthDatabase;
 import com.facegroup.heroes.Database.Wealth.WealthDatabaseInitialization;
+import com.facegroup.heroes.Music;
 import com.facegroup.heroes.R;
 
 public class Database extends SQLiteOpenHelper implements ProfileDatabaseInitialization, WealthDatabaseInitialization, BiographyInitialization, GuideDatabaseInitialization, BiographiesDatabaseInitialization {
@@ -286,10 +287,16 @@ public class Database extends SQLiteOpenHelper implements ProfileDatabaseInitial
         database.update(BiographyDatabase.TABLE_BIOGRAPHY, contentValues, null, null);
     }
 
+    @Override
+    public void insertBiographyBackgroundMusic() {
+        ContentValues contentValues = BiographyDatabase.putBackgroundMusic(0);
+        database.insert(BiographyDatabase.TABLE_BIOGRAPHY, null, contentValues);
+    }
+
     @SuppressLint("Range")
     @Override
     public int getBiographyBackgroundMusic() {
-        int backgroundMusic = R.raw.music1;
+        int backgroundMusic = 0;
         @SuppressLint("Recycle") Cursor cursor = database.rawQuery("SELECT * FROM " + BiographyDatabase.TABLE_BIOGRAPHY, null);
         if (cursor.moveToFirst()) {
             do {
@@ -526,4 +533,5 @@ public class Database extends SQLiteOpenHelper implements ProfileDatabaseInitial
         ContentValues contentValues = BiographiesDatabase.updateBiographyPerson(whichPerson);
         database.update(BiographiesDatabase.TABLE_BIOGRAPHIES, contentValues, null, null);
     }
+
 }

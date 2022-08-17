@@ -16,6 +16,8 @@ public interface BiographyInitialization {
 
     int getBiographyTextSize();
 
+    void insertBiographyBackgroundMusic();
+
     void updateBiographyBackgroundMusic(int newBackgroundMusic);
 
     int getBiographyBackgroundMusic();
