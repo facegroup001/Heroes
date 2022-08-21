@@ -19,14 +19,27 @@ public class AboutUs extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_about_us);
-        layoutAboutUs = findViewById(R.id.layout_about_us);
+        init();
+    }
+
+    public void init() {
+        Sound.initClickSoundPool(this);
+        initWidgets();
+        animate();
+        initBackgroundMusic();
+        startMusic();
+    }
+
+    public void animate() {
         layoutAboutUs.setEnabled(false);
         layoutAboutUs.setScaleX(7);
         layoutAboutUs.setScaleY(7);
         layoutAboutUs.animate().scaleX(1).scaleY(1).setDuration(1000);
         new Handler().postDelayed(() -> layoutAboutUs.setEnabled(true), 1500);
-        initBackgroundMusic();
-        startMusic();
+    }
+
+    public void initWidgets() {
+        layoutAboutUs = findViewById(R.id.layout_about_us);
     }
 
     public void goToInstagram(View view) {
@@ -62,7 +75,7 @@ public class AboutUs extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Sound.playClickSound();
+        Sound.playSound();
         stopMusic();
         GoSomewhere.goSomewhere(this, Settings.class);
     }

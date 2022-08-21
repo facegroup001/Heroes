@@ -39,18 +39,18 @@ public class PictureGameLevels extends AppCompatActivity implements WealthInitia
         init();
 
         btnSettings.setOnClickListener(view -> {
-            Sound.playClickSound();
+            Sound.playSound();
             GoSomewhere.goToSettings(PictureGameLevels.this, ActivitiesNames.PICTURE_GAME_LEVELS.name());
             disableAllViews();
         });
         btnStore.setOnClickListener(view -> {
-            Sound.playClickSound();
+            Sound.playSound();
             GoSomewhere.goToStore(PictureGameLevels.this, ActivitiesNames.PICTURE_GAME_LEVELS.name());
             disableAllViews();
         });
 
         btnStartGame.setOnClickListener(view -> {
-            Sound.playClickSound();
+            Sound.playSound();
             if (gameLevel == 0) {
                 Toast.makeText(PictureGameLevels.this, "No level is selected.", Toast.LENGTH_SHORT).show();
             } else {
@@ -66,7 +66,7 @@ public class PictureGameLevels extends AppCompatActivity implements WealthInitia
             Button btn = (layoutLevels.getChildAt(i) instanceof Button ? (Button) layoutLevels.getChildAt(i) : null);
             if (btn == null) return;
             btn.setOnClickListener(view -> {
-                Sound.playClickSound();
+                Sound.playSound();
                 gameLevel = Integer.parseInt((String) view.getTag());
                 for (int j = 0; j < layoutLevels.getChildCount(); j++) {
                     layoutLevels.getChildAt(j).animate().scaleY(1).scaleX(1).setDuration(300);
@@ -77,8 +77,8 @@ public class PictureGameLevels extends AppCompatActivity implements WealthInitia
     }
 
     public void init() {
-        initWidgets();
         Sound.initClickSoundPool(this);
+        initWidgets();
         initWealth();
         initGuide();
         showGuide();
@@ -99,7 +99,7 @@ public class PictureGameLevels extends AppCompatActivity implements WealthInitia
 
     @Override
     public void onBackPressed() {
-        Sound.playClickSound();
+        Sound.playSound();
         GoSomewhere.goSomewhere(this, Games.class);
     }
 

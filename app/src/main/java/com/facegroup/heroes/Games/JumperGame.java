@@ -1,9 +1,9 @@
 package com.facegroup.heroes.Games;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.WindowManager;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.facegroup.heroes.GoSomewhere;
 import com.facegroup.heroes.R;
@@ -16,11 +16,12 @@ public class JumperGame extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_jumper_game);
+        Sound.initClickSoundPool(this);
     }
 
     @Override
     public void onBackPressed() {
-        Sound.playClickSound();
+        Sound.playSound();
         GoSomewhere.goSomewhere(this, Games.class);
     }
 }

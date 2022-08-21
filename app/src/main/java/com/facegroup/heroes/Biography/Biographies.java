@@ -70,12 +70,12 @@ public class Biographies extends AppCompatActivity implements WealthInitializati
 
         btnStore.setOnClickListener(view -> {
             disableAllViews();
-            Sound.playClickSound();
+            Sound.playSound();
             GoSomewhere.goToStore(Biographies.this, ActivitiesNames.BIOGRAPHIES.name());
         });
         btnSettings.setOnClickListener(view -> {
             disableAllViews();
-            Sound.playClickSound();
+            Sound.playSound();
             GoSomewhere.goToSettings(Biographies.this, ActivitiesNames.BIOGRAPHIES.name());
         });
 
@@ -83,8 +83,8 @@ public class Biographies extends AppCompatActivity implements WealthInitializati
 
     public void init() {
         initWidgets();
-        database = new Database(this);
         Sound.initClickSoundPool(this);
+        database = new Database(this);
         addPeople();
         showPeopleToList();
         initWealth();
@@ -204,18 +204,18 @@ public class Biographies extends AppCompatActivity implements WealthInitializati
         imgPersonPriceUnitPP.setBackgroundResource(priceUnitImage);
         imgPersonProfileImagePP.setBackgroundResource(person.getUnlockedProfileImage());
         btnPurchasePersonPP.setOnClickListener(view -> {
-            Sound.playClickSound();
+            Sound.playSound();
             buyPerson(person);
         });
         btnCancelPurchasePersonPP.setOnClickListener(view -> {
-            Sound.playClickSound();
+            Sound.playSound();
             layoutPurchasePerson.setVisibility(View.GONE);
         });
     }
 
     @Override
     public void onBackPressed() {
-        Sound.playClickSound();
+        Sound.playSound();
         GoSomewhere.goSomewhere(this, Home.class);
     }
 
@@ -285,7 +285,7 @@ public class Biographies extends AppCompatActivity implements WealthInitializati
 
     @Override
     public void selectPerson(View view, Person person) {
-        Sound.playClickSound();
+        Sound.playSound();
         if (peopleUnlockStatusList.get(selectedPersonFromLayout)) {
             disableAllViews();
             sendDataToBiography(view, person);

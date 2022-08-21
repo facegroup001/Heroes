@@ -35,7 +35,7 @@
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".Store"
+            android:name=".Store.Store"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity

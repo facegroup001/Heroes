@@ -58,7 +58,7 @@ public class Registration extends AppCompatActivity implements DisableViews {
         });
 
         cbUseMyName.setOnCheckedChangeListener((compoundButton, b) -> {
-            Sound.playClickSound();
+            Sound.playSound();
             etUsername.setEnabled(b);
             setCharacterName();
             etUsername.setTextColor(b ? Profile.MY_NAME_COLOR : Profile.DEFAULT_NAME_COLOR);
@@ -71,7 +71,7 @@ public class Registration extends AppCompatActivity implements DisableViews {
         btnLetsGo.setOnClickListener(view -> {
             if (isUsernameValid()) {
                 updateUser();
-                Sound.playClickSound();
+                Sound.playSound();
                 disableAllViews();
                 letsGoAnimation();
                 if (cameFromSettings.equals("CAME_FROM_SETTINGS")) {
@@ -86,7 +86,7 @@ public class Registration extends AppCompatActivity implements DisableViews {
     }
 
     public void nextCharacter() {
-        Sound.playClickSound();
+        Sound.playSound();
         if (imgPosition == Profile.getArrCharactersImages().length - 1) {
             imgPosition = -1;
         }
@@ -96,7 +96,7 @@ public class Registration extends AppCompatActivity implements DisableViews {
     }
 
     public void previousCharacter() {
-        Sound.playClickSound();
+        Sound.playSound();
         if (imgPosition == 0) {
             imgPosition = Profile.getArrCharactersImages().length;
         }
@@ -119,8 +119,8 @@ public class Registration extends AppCompatActivity implements DisableViews {
 
     public void init() {
         initWidgets();
-        database = new Database(this);
         Sound.initClickSoundPool(this);
+        database = new Database(this);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             cameFromSettings = bundle.getString("SETTINGS");
@@ -210,7 +210,7 @@ public class Registration extends AppCompatActivity implements DisableViews {
 
     @Override
     public void onBackPressed() {
-        Sound.playClickSound();
+        Sound.playSound();
         if (cameFromSettings.equals("CAME_FROM_SETTINGS")) {
             GoSomewhere.goSomewhere(this, Settings.class);
         } else {

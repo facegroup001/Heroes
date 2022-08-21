@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.facegroup.heroes.Store.Store;
 
 public class GoSomewhere {
 
@@ -49,7 +50,7 @@ public class GoSomewhere {
 
     public static void goToInstagram(Activity activity, String username) {
         Sound.initClickSoundPool(activity);
-        Sound.playClickSound();
+        Sound.playSound();
         Uri uri = Uri.parse("https://www.instagram.com/" + username + "/");
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         activity.startActivity(intent);

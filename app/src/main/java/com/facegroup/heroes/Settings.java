@@ -13,6 +13,7 @@ import com.facegroup.heroes.Games.Games;
 import com.facegroup.heroes.Games.PictureGame.PictureGameLevels;
 import com.facegroup.heroes.Guide.Guide;
 import com.facegroup.heroes.Guide.GuideInitialization;
+import com.facegroup.heroes.Store.Store;
 
 public class Settings extends AppCompatActivity implements GuideInitialization {
 
@@ -31,14 +32,17 @@ public class Settings extends AppCompatActivity implements GuideInitialization {
         init();
         btnUpdateProfile.setOnClickListener(view -> {
             GoSomewhere.goSomewhere(Settings.this, Registration.class, ActivitiesNames.SETTINGS.name(), "CAME_FROM_SETTINGS");
-            Sound.playClickSound();
+            Sound.playSound();
         });
         btnAboutUs.setOnClickListener(view -> {
-            Sound.playClickSound();
+            Sound.playSound();
             GoSomewhere.goSomewhere(Settings.this, AboutUs.class);
         });
 
-        btnResetGuides.setOnClickListener(view -> resetGuide());
+        btnResetGuides.setOnClickListener(view -> {
+            Sound.playSound();
+            resetGuide();
+        });
     }
 
     public void resetGuide() {
@@ -54,8 +58,8 @@ public class Settings extends AppCompatActivity implements GuideInitialization {
 
     public void init() {
         initWidgets();
-        database = new Database(this);
         Sound.initClickSoundPool(this);
+        database = new Database(this);
         initCameFromWhere();
         initGuide();
         showGuide();
@@ -69,7 +73,7 @@ public class Settings extends AppCompatActivity implements GuideInitialization {
 
     @Override
     public void onBackPressed() {
-        Sound.playClickSound();
+        Sound.playSound();
         switch (cameFromWhere) {
             case "HOME":
                 GoSomewhere.goSomewhere(this, Home.class);

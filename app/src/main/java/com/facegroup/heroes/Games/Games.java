@@ -36,25 +36,25 @@ public class Games extends AppCompatActivity implements WealthInitialization, An
         init();
 
         btnStore.setOnClickListener(view -> {
-            Sound.playClickSound();
+            Sound.playSound();
             GoSomewhere.goToStore(Games.this, ActivitiesNames.GAMES.name());
             disableAllViews();
         });
         btnSettings.setOnClickListener(view -> {
-            Sound.playClickSound();
+            Sound.playSound();
             GoSomewhere.goToSettings(Games.this, ActivitiesNames.GAMES.name());
             disableAllViews();
         });
 
         btnPictureGame.setOnClickListener(view -> {
-            Sound.playClickSound();
+            Sound.playSound();
             disableAllViews();
             decreaseViewSize(view);
             new Handler().postDelayed(() -> increaseViewSize(view), 300);
             new Handler().postDelayed(() -> GoSomewhere.goSomewhere(Games.this, PictureGameLevels.class), 500);
         });
         btnJumperGame.setOnClickListener(view -> {
-            Sound.playClickSound();
+            Sound.playSound();
             disableAllViews();
             decreaseViewSize(view);
             new Handler().postDelayed(() -> increaseViewSize(view), 300);
@@ -64,8 +64,8 @@ public class Games extends AppCompatActivity implements WealthInitialization, An
     }
 
     public void init() {
-        initWidgets();
         Sound.initClickSoundPool(this);
+        initWidgets();
         initWealth();
         initGuide();
         showGuide();
@@ -91,7 +91,7 @@ public class Games extends AppCompatActivity implements WealthInitialization, An
 
     @Override
     public void onBackPressed() {
-        Sound.playClickSound();
+        Sound.playSound();
         GoSomewhere.goSomewhere(this, Home.class);
     }
 

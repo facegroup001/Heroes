@@ -41,25 +41,25 @@ public class Home extends AppCompatActivity implements WealthInitialization, Ani
         init();
 
         btnSettings.setOnClickListener(view -> {
-            Sound.playClickSound();
+            Sound.playSound();
             GoSomewhere.goToSettings(Home.this, ActivitiesNames.HOME.name());
             disableAllViews();
         });
         btnStore.setOnClickListener(view -> {
-            Sound.playClickSound();
+            Sound.playSound();
             GoSomewhere.goToStore(Home.this, ActivitiesNames.HOME.name());
             disableAllViews();
         });
 
         btnPartBiography.setOnClickListener(view -> {
-            Sound.playClickSound();
+            Sound.playSound();
             disableAllViews();
             decreaseViewSize(view);
             new Handler().postDelayed(() -> increaseViewSize(view), 300);
             new Handler().postDelayed(this::goToBiographies, 500);
         });
         btnPartGame.setOnClickListener(view -> {
-            Sound.playClickSound();
+            Sound.playSound();
             disableAllViews();
             decreaseViewSize(view);
             new Handler().postDelayed(() -> increaseViewSize(view), 300);
@@ -126,7 +126,7 @@ public class Home extends AppCompatActivity implements WealthInitialization, Ani
 
     @Override
     public void onBackPressed() {
-        Sound.playClickSound();
+        Sound.playSound();
         if (backPressedCounter == 1) {
             finish();
         } else {

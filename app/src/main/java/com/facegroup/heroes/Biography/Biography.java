@@ -18,7 +18,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -96,14 +95,14 @@ public class Biography extends AppCompatActivity implements DisableViews, GuideI
             new Handler().postDelayed(this::enableViews, 200);
         });
         btnChangeBiographyLanguage.setOnClickListener(view -> {
-            Sound.playClickSound();
+            Sound.playSound();
             disableAllViews();
             view.animate().rotationYBy(360).setDuration(500);
             new Handler().postDelayed(this::enableViews, 500);
             changeBiographyLanguage();
         });
         btnPlayMusic.setOnClickListener(view -> {
-            Sound.playClickSound();
+            Sound.playSound();
             if (mpMusic.isPlaying()) {
                 pauseMusic();
             } else {
@@ -111,14 +110,14 @@ public class Biography extends AppCompatActivity implements DisableViews, GuideI
             }
         });
         btnZoomOutText.setOnClickListener(view -> {
-            Sound.playClickSound();
+            Sound.playSound();
             if (database.getBiographyTextSize() > MINIMUM_TEXT_SIZE) {
                 database.updateBiographyTextSize((database.getBiographyTextSize() - 1));
                 tvBiography.setTextSize(TypedValue.COMPLEX_UNIT_SP, database.getBiographyTextSize());
             }
         });
         btnZoomInText.setOnClickListener(view -> {
-            Sound.playClickSound();
+            Sound.playSound();
             if (database.getBiographyTextSize() < MAXIMUM_TEXT_SIZE) {
                 database.updateBiographyTextSize((database.getBiographyTextSize() + 1));
                 tvBiography.setTextSize(TypedValue.COMPLEX_UNIT_SP, database.getBiographyTextSize());
@@ -134,7 +133,7 @@ public class Biography extends AppCompatActivity implements DisableViews, GuideI
             }
         });
         btnChangeTextStyle.setOnClickListener(view -> {
-            Sound.playClickSound();
+            Sound.playSound();
             if (biographyTextStyle == 3) {
                 biographyTextStyle = -1;
             }
@@ -143,7 +142,7 @@ public class Biography extends AppCompatActivity implements DisableViews, GuideI
             tvBiography.setTypeface(Typeface.DEFAULT, biographyTextStyle);
         });
         btnChangeBiographyTextColor.setOnClickListener(view -> {
-            Sound.playClickSound();
+            Sound.playSound();
             initColorPickerDialog();
             colorPickerDialog.show();
         });
@@ -168,12 +167,12 @@ public class Biography extends AppCompatActivity implements DisableViews, GuideI
         colorPickerDialog = new AmbilWarnaDialog(Biography.this, biographyTextColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
             @Override
             public void onCancel(AmbilWarnaDialog dialog) {
-                Sound.playClickSound();
+                Sound.playSound();
             }
 
             @Override
             public void onOk(AmbilWarnaDialog dialog, int color) {
-                Sound.playClickSound();
+                Sound.playSound();
                 database.updateBiographyTextColor(color);
                 tvBiography.setTextColor(database.getBiographyTextColor());
             }
@@ -352,6 +351,7 @@ public class Biography extends AppCompatActivity implements DisableViews, GuideI
 
     public void init() {
         initWidgets();
+        Sound.initClickSoundPool(this);
         database = new Database(this);
 
         biographyTextStyle = database.getBiographyTextStyle();
@@ -409,7 +409,7 @@ public class Biography extends AppCompatActivity implements DisableViews, GuideI
     @Override
     public void onBackPressed() {
         pauseMusic();
-        Sound.playClickSound();
+        Sound.playSound();
         GoSomewhere.goSomewhere(this, Biographies.class);
     }
 
